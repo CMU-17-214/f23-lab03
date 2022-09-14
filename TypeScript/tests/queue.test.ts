@@ -1,3 +1,4 @@
+import exp from "constants";
 import { newArrayIntQueue } from "../src/arrayqueue";
 import { newLinkedListIntQueue } from "../src/linkedlistqueue.js";
 
@@ -7,6 +8,13 @@ let createQueue = newLinkedListIntQueue
 
 // TODOs:
 // write more test cases to test dequeue and clear functions.
+test("test deQueue: the newly created queue should be length 1", () =>{
+    const queue = createQueue()
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.dequeue()
+    expect(queue.peek()).toEqual(2)
+})
 
 test("test isEmpty: newly created list should be empty", () => {
     expect(createQueue().isEmpty()).toBeTruthy()
