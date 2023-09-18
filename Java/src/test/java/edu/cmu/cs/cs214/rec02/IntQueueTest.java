@@ -33,8 +33,8 @@ public class IntQueueTest {
     @Before
     public void setUp() {
         // comment/uncomment these lines to test each class
-        mQueue = new LinkedIntQueue();
-//        mQueue = new ArrayIntQueue();
+        //mQueue = new LinkedIntQueue();
+        mQueue = new ArrayIntQueue();
 
         testList = new ArrayList<>(List.of(1, 2, 3));
     }
@@ -81,6 +81,19 @@ public class IntQueueTest {
     }
 
     @Test
+    public void testDequeueEmptyQueue() {
+        assertNull(mQueue.dequeue());
+    }
+
+    @Test
+    public void testClear() {
+        Integer input = 1;
+        mQueue.enqueue(input);
+        mQueue.clear();
+        assertTrue(mQueue.isEmpty());
+    }
+
+    @Test
     public void testContent() throws IOException {
         InputStream in = new FileInputStream("src/test/resources/data.txt");
         try (Scanner scanner = new Scanner(in)) {
@@ -100,5 +113,15 @@ public class IntQueueTest {
         }
     }
 
-
+    @Test
+    public void testEnqueueOutOfCapacity() {
+        mQueue.enqueue(1);
+        mQueue.dequeue();
+        for (int i = 1; i < 12; i++) {
+            mQueue.enqueue(i);
+            assertEquals((Integer)1, mQueue.peek());
+            assertEquals(i, mQueue.size());
+        }
+         assertEquals(11, mQueue.size());
+    }
 }
